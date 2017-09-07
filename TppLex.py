@@ -1,41 +1,52 @@
-import ply.lex as lex
+#!/usr/bin/python
+# coding: utf-8
 
+import ply.lex as lex
 reserved = {
-  'se'        : 'SE',
-  'então'     : 'ENTAO',
-  'senão'     : 'SENAO',
-  'fim'       : 'FIM',
-  'repita'    : 'REPITA' ,
-  'flutuante' : 'FLUTUANTE',
-  'retorna'   : 'RETORNA',
-  'até'       : 'ATE',
-  'leia'      : 'LEIA',
-  'escreve'   : 'ESCREVE',
-  'inteiro'   : 'INTEIRO',
+  'se'        :'SE',
+  'então'     :'ENTAO',
+  'senão'     :'SENAO',
+  'fim'       :'FIM',
+  'repita'    :'REPITA' ,
+  'flutuante' :'FLUTUANTE',
+  'retorna'   :'RETORNA',
+  'até'       :'ATE',
+  'leia'      :'LEIA',
+  'escreve'   :'ESCREVE',
+  'inteiro'   :'INTEIRO',
+  'principal' :'PRINCIPAL',
+
 }
 
 tokens = [
-   'NUMERO',
-   'SOMA',
-   'SUBR',
-   'VEZES',
-   'DIVIDE',
-   'IGUAL',
-   'VIRGULA',
-   'ATRIBUICAO',
-   'MENOR',
-   'MAIOR',
-   'MENORIGUAL',
-   'MAIORIGUAL',
-   'ABREPAR',
-   'FECHAPAR',
-   'DOISPONTOS',
-   'ABRECOLCH',
-   'FECHACOLCH',
-   'ELOGICO',
-   'OULOGICO',
-   'NEGACAO',
-   'ID',
+  'ID',
+  'VIRGULA',
+  'ATRIBUICAO',
+  'COMENTARIO',  
+
+  'SOMA',
+  'SUBR',
+  'VEZES',
+  'DIVIDE',   
+  'IGUAL',
+
+  'MENOR',
+  'MAIOR',
+  'MENORIGUAL',
+  'MAIORIGUAL',
+  'ELOGICO',
+  'OULOGICO',
+  'NEGACAO',
+  'DIFERENTE',
+
+  'ABREPAR',
+  'FECHAPAR',
+  'DOISPONTOS',
+  'ABRECOLCH',
+  'FECHACOLCH',   
+  'CHAVEDIR',
+  'CHAVEESQ',
+
 ] + list(reserved.values())
 
 
@@ -44,36 +55,48 @@ t_SOMA    = r'\+'
 t_SUBR   = r'-'
 t_VEZES   = r'\*'
 t_DIVIDE  = r'\/'
-t_IGUAL = r'\='
+t_IGUAL = r'\=\='
 t_VIRGULA = r'\,'
-#t_ATRIBUICAO = r'\:\='
+t_ATRIBUICAO = r'\:\='
 t_MENOR = r'\<'
 t_MAIOR = r'\>'
-#t_MENORIGUAL = r'\<\='
-#t_MAIORIGUAL = r'\>\='
+t_MENORIGUAL = r'\<\='
+t_MAIORIGUAL = r'\>\='
 t_ABREPAR  = r'\('
 t_FECHAPAR  = r'\)'
 t_DOISPONTOS = r'\:'
 t_ABRECOLCH = r'\['
 t_FECHACOLCH = r'\]'
-#t_ELOGICO = r'\&\&'
-#t_OULOGICO = r'\|\|'
+t_ELOGICO = r'\&\&'
+t_OULOGICO = r'\|\|'
 t_NEGACAO = r'\!'
+t_DIFERENTE = r'\!\='
+t_CHAVEDIR = r'\}'
+t_CHAVEESQ = r'\{'
+t_COMENTARIO = r'\{.*\}'
 
 
 def t_ID(t):
-    r'[a-zA-Z][a-zA-Z_0-9]*'
+    r'[a-zA-Z_][a-zA-Z_0-9à-ú]*'
     t.type = reserved.get(t.value,'ID')    # Check for reserved words
     return t
 
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)    
-    return 
+
+def t_FLUTUANTE(t):
+    r'[-+]?[0-9]+[\.][0-9]+'
+    t.value = float(t.value)   
+    return t  
+
+def t_INTEIRO(t):
+    r'[-+]?[0-9]+'
+    t.value = int(t.value)   
+    return t
+
 # Define a rule so we can track line numbers
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
 
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
@@ -88,17 +111,28 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-3 + 4 * 10
-  + -20 *2
+inteiro principal()
+  inteiro: digitado
+  inteiro: i
+  i := 1
+  repita
+    flutuante: f
+    inteiro: int
+    flutuante: resultado
+    f := i/2.
+    int := i/2
+    resultado := f - int
+    
+    se  resultado > 0
+      escreva (i)
+    fim
+    i := i+1
+  até i <= digitado
+fim
 '''
 
 # Give the lexer some input
 lexer.input(data)
-
-# Tokenize
-
-for tok in lexer:
-    print(tok)
 
 # Tokenize
 while True:
