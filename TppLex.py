@@ -77,13 +77,13 @@ t_COMENTARIO = r'\{.*\}'
 
 
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9à-ú]*'
+    r'[a-zA-Z][a-zA-Z_0-9à-ú]*'
     t.type = reserved.get(t.value,'ID')    # Check for reserved words
     return t
 
 
 def t_FLUTUANTE(t):
-    r'[-+]?[0-9]+[\.][0-9]+'
+    r'[-+]?[0-9]+[\.][0-9]*'
     t.value = float(t.value)   
     return t  
 
@@ -111,7 +111,7 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-inteiro principal()
+inteiro principal()  
   inteiro: digitado
   inteiro: i
   i := 1
