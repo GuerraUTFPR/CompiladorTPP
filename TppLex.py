@@ -2,6 +2,8 @@
 # coding: utf-8
 
 import ply.lex as lex
+import sys
+
 reserved = {
   'se'        :'SE',
   'então'     :'ENTAO',
@@ -103,40 +105,27 @@ t_ignore  = ' \t'
 
 # Error handling rule
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print("Caractére ilegal '%s'" % t.value[0])
     t.lexer.skip(1)
 
-# Build the lexer
-lexer = lex.lex()
 
-# Test it out
-data = '''
-inteiro principal()  
-  inteiro: digitado
-  inteiro: i
-  i := 1
-  repita
-    flutuante: f
-    inteiro: int
-    flutuante: resultado
-    f := i/2.
-    int := i/2
-    resultado := f - int
-    
-    se  resultado > 0
-      escreva (i)
-    fim
-    i := i+1
-  até i <= digitado
-fim
-'''
 
-# Give the lexer some input
-lexer.input(data)
 
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break      # No more input
-    print(tok.type, tok.value, tok.lineno, tok.lexpos)
+def main():  
+  lexer = lex.lex()
+  f = open(sys.argv[1], 'r')
+
+  data = f.read()
+  
+  # Give the lexer some input
+  lexer.input(data)
+
+  # Tokenize
+  while True:
+      tok = lexer.token()
+      if not tok: 
+          break      # No more input
+      print(tok.type, tok.value, tok.lineno, tok.lexpos)
+
+if __name__ == "__main__":
+  main()
