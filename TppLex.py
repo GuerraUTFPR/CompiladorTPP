@@ -133,11 +133,8 @@ def main():
       tipo = tok.type
       valor = tok.value
       linha = tok.lineno
-
       s = '<' + tipo + ', ' + str(valor) + ', ' + str(linha) + '>'
-
-      print s
-     
+      print s    
       #print '<' + repr(tipo) + ' ' + repr(valor) + ' ' + repr(linha) + '>'
 
 if __name__ == "__main__":
