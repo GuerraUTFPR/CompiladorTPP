@@ -53,11 +53,11 @@ tokens = [
 
 
 # Regular expression rules for simple tokens
-t_SOMA    = r'\+'
-t_SUBR   = r'-'
-t_VEZES   = r'\*'
-t_DIVIDE  = r'\/'
-t_IGUAL = r'\=\='
+t_SOMA = r'\+'
+t_SUBR = r'-'
+t_VEZES = r'\*'
+t_DIVIDE = r'\/'
+t_IGUAL = r'\='
 t_VIRGULA = r'\,'
 t_ATRIBUICAO = r'\:\='
 t_MENOR = r'\<'
@@ -73,24 +73,29 @@ t_ELOGICO = r'\&\&'
 t_OULOGICO = r'\|\|'
 t_NEGACAO = r'\!'
 t_DIFERENTE = r'\!\='
-t_CHAVEDIR = r'\}'
-t_CHAVEESQ = r'\{'
-t_COMENTARIO = r'\{.*\}'
-
+#t_COMENTARIO = r'\{\s*.*\s*\}'
+#t_COMENTARIO = r'\{[^}]*[^{]*\}'
 
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z_0-9à-ú]*'
     t.type = reserved.get(t.value,'ID')    # Check for reserved words
     return t
 
+def t_COMENTARIO(t):
+  #r'\{\s*.*\s*\}'
+  r'\{[\s]*[^}]*[\s]*[^{]*\}'
+  for x in xrange(0,len(t.value)):
+    if t.value[x] == '\n':
+      t.lexer.lineno += 1
+  return t
 
 def t_FLUTUANTE(t):
-    r'[-+]?[0-9]+[\.][0-9]*'
+    r'[0-9]+[\.][0-9]*'
     t.value = float(t.value)   
     return t  
 
 def t_INTEIRO(t):
-    r'[-+]?[0-9]+'
+    r'[0-9]+'
     t.value = int(t.value)   
     return t
 
@@ -122,10 +127,18 @@ def main():
 
   # Tokenize
   while True:
-      tok = lexer.token()
+      tok = lexer.token()      
       if not tok: 
           break      # No more input
-      print(tok.type, tok.value, tok.lineno, tok.lexpos)
+      tipo = tok.type
+      valor = tok.value
+      linha = tok.lineno
+
+      s = '<' + tipo + ', ' + str(valor) + ', ' + str(linha) + '>'
+
+      print s
+     
+      #print '<' + repr(tipo) + ' ' + repr(valor) + ' ' + repr(linha) + '>'
 
 if __name__ == "__main__":
   main()
