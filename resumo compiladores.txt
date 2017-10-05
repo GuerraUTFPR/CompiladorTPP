@@ -1,8 +1,0 @@
-resumo compiladores
-
-Este documento tem por objetivo registrar e detalhar os processos de implementação de um compilador. A linguagem a ser compilada é denominada de T++ e contém todos os atributos de uma linguagem de programação convecional. O processo de compilação consiste em traduzir uma liguagem de alto nível para uma intermediaria, para isso, tal processo será dividido em quatro partes, análise lexica, análise sintática, análise semântica e por ultimo a geração de código intermediário.
-
-Análise Lexica
-Conhecido também como sistema de varredura, a análise lexica é a fase na qual é realizada a leitura do código fonte como um arquivo de caractéres, e separa em um conjunto de tokens. Para cada palavra reservada é gerado um token, como por exemplo "se", "então", "repita", "até" entre outras. Pode se gerar tokens também para identificadores, que são geralmente palavras que não está no conjunto de palavras reservadas, podendo começar com letras minusculas ou maiuscula seguida de zero ou muitos caractéres, podendo ter acento ou underscore. Outra forma de se reconhecer tokens tokens é com simbolos, tais como "+", "-", "*", e etc..4
-
-Estes tokens podem ser reconhecido utilizando-se exrpressões regulares e automatos finitos
