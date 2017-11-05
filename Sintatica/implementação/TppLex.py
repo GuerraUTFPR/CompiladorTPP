@@ -1,6 +1,5 @@
 #!/usr/bin/python
-# coding: utf-8
-
+# -*- coding: utf-8 -*-
 import ply.lex as lex
 import sys
 
@@ -20,17 +19,15 @@ class Lexer:
     'retorna'   :'RETORNA',
     'até'       :'ATE',
     'leia'      :'LEIA',
-    'escreve'   :'ESCREVE',
-    'inteiro'   :'INTEIRO',
-    'principal' :'PRINCIPAL',
+    'escreva'   :'ESCREVA',
+    'inteiro'   :'INTEIRO',    
 
   }
   #vetor de tokens concatenado com o hash de palavras reservadas
   tokens = [
     'ID',
     'VIRGULA',
-    'ATRIBUICAO',
-    'COMENTARIO',  
+    'ATRIBUICAO',  
 
     'SOMA',
     'SUBR',
@@ -52,8 +49,7 @@ class Lexer:
     'DOISPONTOS',
     'ABRECOLCH',
     'FECHACOLCH',   
-    'CHAVEDIR',
-    'CHAVEESQ',
+
 
   ] + list(reserved.values())
 
@@ -76,50 +72,59 @@ class Lexer:
   t_FECHACOLCH = r'\]'
   t_ELOGICO = r'\&\&'
   t_OULOGICO = r'\|\|'
-  t_NEGACAO = r'\!'
+  #t_NEGACAO = r'\!'
   t_DIFERENTE = r'\!\='
+  t_INTEIRO = r'[0-9]+'
+  t_FLUTUANTE =r'[0-9]+[\.][0-9]*' 
+
 
 
   # Expressão regular para identificadores e palavras reservadas
-  def t_ID(t):
+  def t_ID(self, t):
       r'[a-zA-Z][a-zA-Z_0-9à-ú]*'
-      t.type = reserved.get(t.value,'ID') #verifica se é palavra reservada
+      t.type = self.reserved.get(t.value,'ID') #verifica se é palavra reservada
       return t
 
   # Expressão regular para comentários, com tratamento de contagem de linhas
-  def t_COMENTARIO(t):
-    r'\{[\s]*[^}]*[\s]*[^{]*\}'
-    for x in xrange(0,len(t.value)): #verificando a quantidade de quebra de linhas
+  def t_COMENTARIO(self, t):
+    r'\{[\s]*[^}]*[\s]*[^{]*\}'    
+    for x in xrange(0,len(t.value)): #verificando a quantidade de quebra de linhas  
       if t.value[x] == '\n':
         t.lexer.lineno += 1
-    return t
+
+
 
   # Expressão regular para identificar numeros flutuante, considerando o ponto (ex: 2. é flutuante)
-  def t_FLUTUANTE(t):
-      r'[0-9]+[\.][0-9]*'
-      t.value = float(t.value)   
-      return t  
+  #def t_FLUTUANTE(self, t):
+  #    r'[0-9]+[\.][0-9]*'
+  #    t.value = float(t.value)   
+  #    return t  
 
   #exŕessão regular para identificar números inteiros
-  def t_INTEIRO(t):
-      r'[0-9]+'
-      t.value = int(t.value)   
-      return t
+  #def t_INTEIRO(self, t):
+  #    r'[0-9]+'
+  #    t.value = int(t.value)   
+  #    return t
 
   # regra para contagem de linhas
-  def t_newline(t):
+  def t_newline(self, t):
       r'\n+'
       t.lexer.lineno += len(t.value)
 
 
   # caracteres ignorados
   t_ignore  = '\t '
-
+  
   # Mostrar erro
-  def t_error(t):
-      #print "Caractére ilegal" + t.value[0]
-      t.lexer.skip(1)
-
+  def t_error(self, t):
+    if t.value[0] == '{':
+      print "Comentario não finalizado"
+    if t.value[0] == '}':
+      print "Comentario não aberto"
+      
+    print "Caractére ilegal " + t.value[0]
+    #t.lexer.skip(1)
+    return None
 
 
 def main():  
