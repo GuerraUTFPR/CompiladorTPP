@@ -37,6 +37,8 @@ class Semantica():
 		self.listaDeFuncoes = []		
 		self.codigo = codigo
 		self.arvore = Parser(codigo).ast
+		#self.montaFunc(self.arvore)
+
 		self.addVarFunc()
 		self.montarTabelaSimbolos(self.arvore)
 		self.verificaPrincipal()
@@ -48,8 +50,22 @@ class Semantica():
 
 		#for i in range (0, len(self.listaDeFuncoes)):
 			#print self.listaDeFuncoes[i]
+###refazendo
 
 
+	# def montaFunc(self, node):
+	# 	if node is not None:
+	# 		if node.type == 'declaracao_funcao':
+	# 			if len(node.child) == 2:
+	# 				tipoRetorno = node.child[0].type
+	# 			else:
+	# 				tipoRetorno = 'vazio'
+
+
+
+
+
+####refazendo
 	def montarTabelaSimbolos(self, node):
 		if node is not None:
 			if node.type == 'declaracao': # procurando por variaveis globais
@@ -59,12 +75,11 @@ class Semantica():
 					tipo = node.child[0].child[0].type # obtém os tipos das variaveis
 					flag = 0
 					for i in range(0, len(listaVar)): #itera sobre a lista de variaveis retornadas
-						simbolo = Simbolo(str(tipo), 'global', str(listaVar[i]), '0') #cria um obj simbolo, o ultimo parametro dimensão não foi tratado se é array ou nao
+						simbolo = Simbolo(str(tipo), 'global', str(listaVar[i]), 0) #cria um obj simbolo, o ultimo parametro dimensão não foi tratado se é array ou nao
 						
 						for j in range (0, len(self.listaDeSimbolos)):
 							if simbolo.nome == self.listaDeSimbolos[j].nome:
-								print 'ALERTA: Variável "' + simbolo.nome + '" já declarada no escopo global. A última declaração será desconsiderada.'
-								flag = 1
+								print 'ALERTA: Variável "' + simbolo.nome + '" já declarada no escopo global.'
 						if flag == 0:
 							self.listaDeSimbolos.append(simbolo) #add na lista de simbolos
 					del listaVar[:]
@@ -78,7 +93,8 @@ class Semantica():
 					for j in range(0, len(self.listaDeFuncoes)):
 						flag = 0
 						if listaFunc[i].nome == self.listaDeFuncoes[j].nome:
-			 				print 'ALERTA: função "'+ listaFunc[i].nome + '" já declarada! A segunda função declarada foi desconsiderada.'
+			 				print 'ERRO: função "'+ listaFunc[i].nome + '" já declarada!'
+			 				exit(1)
 							flag = 1							
 
 				 	if flag == 0:
@@ -142,11 +158,9 @@ class Semantica():
 						simbolo = Simbolo(str(tipo), str(escopo), str(listaux2[i]), 0)
 						for j in range(0, len(self.listaDeSimbolos)):																
 							if simbolo.nome == self.listaDeSimbolos[j].nome and simbolo.escopo == self.listaDeSimbolos[j].escopo:
-								print 'ALERTA: Variável já declarada no escopo "'+ simbolo.escopo + '", a variavel "' + simbolo.nome + '" da função "' + simbolo.escopo + '" não será declarada!'
+								print 'ERRO: Variável "'+ simbolo.nome+'" já declarada no escopo "'+ simbolo.escopo + '"'
 								flag = 1
-							elif simbolo.nome == self.listaDeSimbolos[j].nome and self.listaDeSimbolos[j].escopo == 'global':
-								print 'ALERTA: Variável ja declarada no escopo global, a variavel "' + simbolo.nome + '" da função "' + simbolo.escopo + '" não será declarada!'
-								flag = 1
+							
 						if flag == 0:
 							self.listaDeSimbolos.append(simbolo)
 					del listaux2[:]
