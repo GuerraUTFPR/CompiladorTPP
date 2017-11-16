@@ -1,27 +1,15 @@
-mediaTotal()
-	inteiro: a
-	inteiro: c
-	a:= 1
+inteiro teste(inteiro: a, inteiro: b)
+ a:= 1
+ b:= 2
 fim
 
-mediaTotal()
-
-fim
-
-inteiro somavet(inteiro: a, inteiro: c)
-	inteiro: b
-	a := 1
-	b := a+1
-
-	retorna (b)
-fim
 
 inteiro principal()
-	inteiro: a, j, k
-	flutuante: b
+	inteiro: a	
 
 	a:= 1
-	a:=somavet(a)
+	teste(1, 2)
+	
 	retorna(0)
 fim
 
