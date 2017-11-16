@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import ply.yacc as yacc
 import sys
+import re
 from TppLex import Lexer
 from graphviz import Digraph
 
@@ -47,7 +48,7 @@ class Parser:
 		'''
 		lista_declaracoes : declaracao		
 		'''
-		p[0] = Tree('lista_declaracoes1',[p[1]])
+		p[0] = Tree('lista_declaracoes',[p[1]])
 
 		 		
 	def p_declaracao(self, p):
@@ -83,7 +84,7 @@ class Parser:
 		'''
 		lista_variaveis : var
 		'''
-		p[0] = Tree('lista_variaveis1',[p[1]])
+		p[0] = Tree('lista_variaveis',[p[1]])
 
 
 	def p_var(self, p):
@@ -113,11 +114,11 @@ class Parser:
 
 	def p_tipo(self, p):
 		'tipo : INTEIRO'
-		p[0] = Tree('tipo',[], p[1])
+		p[0] = Tree('inteiro',[])
 
 	def p_tipo1(self, p):
 		'tipo : FLUTUANTE'
-		p[0] = Tree('tipo1',[], p[1])
+		p[0] = Tree('flutuante',[])
 
 
 	def p_declaracao_funcao(self, p):
@@ -266,7 +267,7 @@ class Parser:
  		'''
  		expressao_aditiva : expressao_aditiva operador_multiplicacao expressao_unaria
  		'''
-		p[0] = Tree('expressao_aditiva1', [p[1], p[2], p[3]])
+		p[0] = Tree('expressao_aditiva', [p[1], p[2], p[3]])
 
 
  	def p_expressao_multiplicativa(self, p):
@@ -276,9 +277,9 @@ class Parser:
 		p[0] = Tree('expressao_multiplicativa', [p[1]])
 	def p_expressao_multiplicativa1(self, p):
 	 	'''
-		expressao_multiplicativa : expressao_multiplicativa operador_multiplicacao expressao_unaria
+		expressao_multiplicativa : expressao_aditiva operador_soma expressao_multiplicativa
 	 	'''
-		p[0] = Tree('expressao_multiplicativa1', [p[1], p[2], p[3]])
+		p[0] = Tree('expressao_multiplicativa', [p[1], p[2], p[3]])
 
 	
 	def p_expressao_unaria(self, p):
@@ -313,14 +314,14 @@ class Parser:
 		operador_soma : SOMA
 						| SUBR
 		'''
-		p[0] = Tree('operador_soma', [], str(p[1]))
+		p[0] = Tree('operador_soma', [])
 		
 	def p_operador_multiplicacao(self, p):
 		'''
 		operador_multiplicacao : VEZES
 								| DIVIDE
 		'''
-		p[0] = Tree('operador_multiplicacao', [], str(p[1]))
+		p[0] = Tree('operador_multiplicacao', [])
 
 
 	def p_fator(self, p):
@@ -334,7 +335,7 @@ class Parser:
 				| chamada_funcao
 				| numero
 		'''
-		p[0] = Tree('fator1', [p[1]])
+		p[0] = Tree('fator', [p[1]])
 
 		
 	def p_numero(self, p):
@@ -362,7 +363,7 @@ class Parser:
 		lista_argumentos : expressao
 						| vazio
 		'''
-		p[0] = Tree('lista_argumentos1',[p[1]])
+		p[0] = Tree('lista_argumentos',[p[1]])
 
 
 	def p_vazio(self, p):
@@ -388,7 +389,6 @@ def print_arvore(node, level="-"):
 			print("%s %s" %(level, node.type))
 		for son in node.child:
 			print_arvore(son, level+"-")
-
 class Imprimir():
 	def __init__(self):
 		self.j = 1
@@ -408,16 +408,16 @@ if __name__ == '__main__':
 	from sys import argv, exit
 	f = open(argv[1])
 	
-	try:
-		arvore = Parser(f.read())
-		print_arvore(arvore.ast)
+	#try:
+	arvore = Parser(f.read())
+	#print_arvore(arvore.ast)
 
-		w = Digraph('G', filename='GraphOutput.gv.pdf')
-		tree = Imprimir().mostra_tree(arvore.ast,'','', w, i=0)
-		w.view()
-		w.save(filename='GraphOutput.gv')
-		pass
-	except Exception, e:
-		print"erro sintatico"
+	w = Digraph('G', filename='GraphOutput.gv')
+	tree = Imprimir().mostra_tree(arvore.ast,'','', w, i=0)			
+	
+	
 
-
+	w.view()
+		
+	#except Exception, e:
+		#print"erro sintatico"

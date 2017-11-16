@@ -1,0 +1,6 @@
+Correções:
+
+1. Mensagem de erro geral
+2. Variaveis na arovre, usar id ao invés de var1, var2
+3. b := +b + i verificar uma forma para corrigir
+4.
