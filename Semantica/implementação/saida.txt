@@ -1,0 +1,72 @@
+001
+ERRO: Função principal não declarada!
+ALERTA: Variável "a" da função "global" declarada e não utilizada.
+ALERTA: Variável "b" da função "global" declarada e não utilizada.
+
+002
+ERRO: Função "principal" sem retorno
+ALERTA: Variável "a" da função "global" declarada e não utilizada.
+ALERTA: Variável "b" da função "global" declarada e não utilizada.
+
+003
+ERRO: Função "principal" sem retorno
+
+004
+ERRO: Função "principal" sem retorno
+ALERTA: Variável "b" da função "global" declarada e não utilizada.
+
+005
+-erro de execução-
+
+006
+-erro de execução-
+
+007
+ERRO: Variável "a" já declarada
+ERRO: Função "principal" sem retorno
+ALERTA: Variável "a" da função "global" declarada e não utilizada.
+ALERTA: Variável "a" da função "principal" declarada e não utilizada.
+
+008
+ERRO: Função "principal" sem retorno
+ALERTA: Variável "a" da função "global" declarada e não utilizada.
+ALERTA: Variável "c" da função "principal" declarada e não utilizada.
+
+009
+ERRO: Função "principal" sem retorno
+ALERTA: Variável "a" da função "global" declarada e não utilizada.
+ALERTA: Variável "c" da função "principal" declarada e não utilizada.
+
+010
+ERRO: Função "principal" sem retorno
+ALERTA: Variável "a" da função "global" declarada e não utilizada.
+
+011
+ERRO: Função "principal" sem retorno
+
+012
+-erro de execução-
+
+013
+-erro de execução-
+
+014
+AVISO: Função "func" declarada e não utilizada.
+-erro de execuçao-
+
+015
+AVISO: Função "func" declarada e não utilizada.
+-erro de execuçao-
+
+016
+AVISO: Função "func" declarada e não utilizada.
+-erro de execuçao-
+
+017
+-erro de execução-
+
+018
+ERRO: Função "principal" sem retorno
+
+019
+-erro de execução-

@@ -1,15 +1,19 @@
-inteiro teste(inteiro: a, inteiro: b)
- a:= 1
- b:= 2
+inteiro teste(inteiro: a)
+	inteiro: c
+	c:= 15
+	retorna(c)
+
 fim
 
 
 inteiro principal()
-	inteiro: a	
+	inteiro: x
+	flutuante: y
+	inteiro: z
 
-	a:= 1
-	teste(1, 2)
+	x:= teste(10)
+	y:= 11.6
+
+	{z:= x+y}
 	
-	retorna(0)
 fim
-

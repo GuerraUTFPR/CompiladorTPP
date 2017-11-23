@@ -62,8 +62,8 @@ class Semantica():
 						simbolo = Simbolo(str(tipo), 'global', str(listaVar[i]), '0') #cria um obj simbolo, o ultimo parametro dimensão não foi tratado se é array ou nao
 						
 						for j in range (0, len(self.listaDeSimbolos)):
-							if simbolo.nome == self.listaDeSimbolos[j].nome:
-								print 'ALERTA: Variável "' + simbolo.nome + '" já declarada no escopo global. A última declaração será desconsiderada.'
+							if simbolo.nome == self.listaDeSimbolos[j].nome and simbolo.escopo == self.listaDeSimbolos[j].escopo:
+								print 'ERRO1: Variável "' + simbolo.nome + '" já declarada no escopo global. A última declaração será desconsiderada.'
 								flag = 1
 						if flag == 0:
 							self.listaDeSimbolos.append(simbolo) #add na lista de simbolos
@@ -210,8 +210,7 @@ class Semantica():
 				self.listaDeFuncoes[i].utilizado = 1
 		if flag == 0:
 			print 'ERRO: Função principal não declarada!'
-			exit(1)
-
+			
 
 
 	def verificaRet(self, node, escopo):

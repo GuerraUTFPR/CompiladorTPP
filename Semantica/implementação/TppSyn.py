@@ -96,7 +96,7 @@ class Parser:
 		'''
 	    var : ID indice
 	    '''
-		p[0] = Tree('var1', [p[2]], p[1])
+		p[0] = Tree('var', [p[2]], p[1])
 
 
 	def p_indice(self, p):
@@ -109,7 +109,7 @@ class Parser:
 	 	indice : ABRECOLCH expressao FECHACOLCH
 	 	'''
 	 	#print "Erro ... " + p[2]
-		p[0] = Tree('indice1',[p[2]])
+		p[0] = Tree('indice',[p[2]])
 
 
 	def p_tipo(self, p):
