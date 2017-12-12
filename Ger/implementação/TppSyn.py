@@ -314,14 +314,14 @@ class Parser:
 		operador_soma : SOMA
 						| SUBR
 		'''
-		p[0] = Tree('operador_soma', [])
+		p[0] = Tree('operador_soma', [], str(p[1]))
 		
 	def p_operador_multiplicacao(self, p):
 		'''
 		operador_multiplicacao : VEZES
 								| DIVIDE
 		'''
-		p[0] = Tree('operador_multiplicacao', [])
+		p[0] = Tree('operador_multiplicacao', [], str(p[1]))
 
 
 	def p_fator(self, p):

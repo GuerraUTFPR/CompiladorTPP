@@ -455,7 +455,7 @@ class Semantica():
 								tipovarRecebe = self.listaDeSimbolos[i].tipo
 
 					if flag2 == 99:
-						print 'Variavel "' + var +'" não declarada'
+						#print 'Variavel "' + var +'" não declarada'
 						pass
 
 					elif tipovarRecebe != self.tipoAjuda:
@@ -583,7 +583,7 @@ class Semantica():
 					op2 = op2.child[0]
 				
 				
-				tipoOp1 = ""				
+				tipoOp1 = "inteiro"				
 				
 				for i in range(0, len(self.listaDeSimbolos)):					
 					if cabecalho == self.listaDeSimbolos[i].escopo and op1.value == self.listaDeSimbolos[i].nome:

@@ -8,6 +8,7 @@ fim
 inteiro teste(inteiro: a, flutuante: b)
 	inteiro: c
 	c:= 15
+	a := a + c
 	retorna(c)
 fim
 
@@ -15,6 +16,8 @@ fim
 inteiro principal()
 	inteiro: x
 	flutuante: y
+
+	x:= glob * y
 
 	x:= teste(10)
 	y:= 11.6

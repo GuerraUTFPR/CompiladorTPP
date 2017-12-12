@@ -14,6 +14,7 @@ saida_funcaoVazia:
 define i32 @"teste"(i32 %".1", float %".2") 
 {
 entrada_teste:
+  %"retorno" = alloca i32
   %"c" = alloca i32, align 4
 saida_teste:
 }
@@ -21,6 +22,7 @@ saida_teste:
 define i32 @"principal"() 
 {
 entrada_principal:
+  %"retorno" = alloca i32
   %"x" = alloca i32, align 4
   %"y" = alloca float, align 4
   %"matheus" = alloca float, align 4
