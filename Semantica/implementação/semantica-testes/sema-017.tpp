@@ -1,4 +1,6 @@
-{Tipo do retorno diferente do tipo da função}
+{Erro: Função 'func' do tipo inteiro retornando flutuante}
+{Erro: Função 'principal' deveria retornar inteiro, mas retorna vazio}
+
 
 flutuante: a
 inteiro: b
@@ -10,4 +12,5 @@ fim
 
 inteiro principal()
 	b := func()
+	retorna(0)
 fim

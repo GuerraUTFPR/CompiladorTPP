@@ -1,4 +1,7 @@
-{Coerção implícita}
+{Aviso: Coerção implícita do valor de 'b'}
+{Aviso: Coerção implícita do valor de 'a'}
+{Erro: Função principal deveria retornar inteiro, mas retorna vazio}
+
 flutuante: a
 inteiro: b
 

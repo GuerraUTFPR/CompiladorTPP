@@ -1,7 +1,8 @@
-{ 
-  warning: func declarada e não utilizada
-  warning: Chamada recursiva para principal
-}
+{Aviso: Função 'func' declarada, mas não utilizada}
+{Aviso: Coerção implícita do valor atribuído para 'a'}
+{Aviso: Chamada recursiva para principal}
+{Erro: Função principal deveria retornar inteiro, mas retorna vazio}
+
 
 flutuante: a
 inteiro: b

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from TppSyn import Parser
+from llvmlite import ir
 
 
 
@@ -34,6 +35,12 @@ class Simbolo():
 
 class Semantica():
 	def __init__(self, codigo):
+
+
+		#self.module = ir.Module("modulo.bc")
+
+
+
 		self.tipoAjuda = ''
 		self.escopo1 = ''
 		self.tipoExp = ''
@@ -57,14 +64,31 @@ class Semantica():
 		self.verificaExp(self.arvore)
 		self.verificaVarUtil()
 
+		#self.arquivo = open('GenWar.ll', 'w')
+
+		#self.arquivo.write(str(self.module))
+		#self.arquivo.close()
+		#print(self.module)
+
+		#return self.listaDeSimbolos
+
+
+
 
 		for i in range(0, len(self.listaDeFuncoes)):
 			#print self.listaDeFuncoes[i]
 			pass
 
 		for i in range (0, len(self.listaDeSimbolos)):
-			print self.listaDeSimbolos[i]
+			#print self.listaDeSimbolos[i]
 			pass
+
+
+	def iterador(self, node):
+		if node is not None:
+
+			for son in node.child:
+				iterador(son)
 
 
 	def montaFuncao(self, node):
@@ -94,6 +118,15 @@ class Semantica():
 
 				if flag == 0:
 					self.listaDeFuncoes.append(funcao)
+
+					#tipo_func = ir.FunctionType(ir.IntType(32), ())
+					#func = ir.Function(self.module, tipo_func, name = funcao.nome)
+					#entry = func.append_basic_block('entrada_' +funcao.nome)
+					#exit = func.append_basic_block('saida_' + funcao.nome)
+
+					#builder = ir.IRBuilder(entry)
+
+
 				else:
 					print 'ERRO: Função "' + funcao.nome + '" já declarada.' # erro de função declarada
 

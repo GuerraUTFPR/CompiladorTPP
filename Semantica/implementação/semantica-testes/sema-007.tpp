@@ -1,4 +1,6 @@
-{Variável 'a' já declarada}
+{Aviso: Variável 'a' já declarada anteriormente}
+{Erro: Função principal deveria retornar inteiro, mas retorna vazio}
+
 inteiro: a
 flutuante: a
 

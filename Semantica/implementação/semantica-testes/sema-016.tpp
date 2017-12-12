@@ -1,7 +1,7 @@
-{Warning: Função func declarada e não utilizada}
-{Erro: func é do tipo inteiro e está retornando flutuante}
-{Warning: variavel a flutuante recebendo um inteiro}
-{Warning: principal sem retorno ou retornando um void}
+{Aviso: Coerção implícita do valor atribuído para 'a', variável a flutuante recebendo um inteiro}
+{Erro: Função 'func' do tipo inteiro retornando flutuante}
+{Aviso: Função 'func' declarada, mas não utilizada}
+{Erro: Função 'principal' deveria retornar inteiro, mas retorna vazio}
 
 flutuante: a
 inteiro: b

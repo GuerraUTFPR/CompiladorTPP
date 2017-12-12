@@ -1,4 +1,8 @@
-{Chamada para principal}
+{Erro: Chamada para a função principal não permitida}
+{Aviso: Coerção implícita do valor atribuído para 'a'}
+{Aviso: Coerção implícita do valor retornado por 'func'}
+{Erro: Função principal deveria retornar inteiro, mas retorna vazio}
+
 flutuante: a
 inteiro: b
 

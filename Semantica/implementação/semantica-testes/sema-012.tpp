@@ -1,4 +1,8 @@
-{Variável 'c' não declarada}
+{Erro: Variável 'c' não declarada}
+{Aviso: Coerção implícita do valor de 'b'}
+{Aviso: Coerção implícita do valor retornado por 'func'}
+{Erro: Função principal deveria retornar inteiro, mas retorna vazio}
+
 flutuante: a
 inteiro: b
 

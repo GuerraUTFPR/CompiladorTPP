@@ -1,6 +1,7 @@
-{Variável 'a' declarada e não utilizada}
-{Variável 'c' declarada e não utilizada}
-{principal devia retornar inteiro e retorna vazio}
+{Aviso: Variável 'a' declarada e não utilizada}
+{Aviso: Variável 'c' declarada e não utilizada}
+{Erro: Função principal deveria retornar inteiro, mas retorna vazio}
+
 flutuante: a
 
 inteiro principal()

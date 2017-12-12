@@ -1,4 +1,5 @@
-{Retorno em função com retorno vazio}
+{Erro: Função 'func' do tipo vazio retornando flutuante}
+{Erro: Função 'principal' deveria retornar inteiro, mas retorna vazio}
 
 flutuante: a
 inteiro: b
