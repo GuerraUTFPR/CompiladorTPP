@@ -1,24 +1,46 @@
 {Maior de 4 número: contribuição do Kawamoto}
 
-inteiro maiorde2(inteiro:x,y)
-	se (x > y) então
-		retorna(x)
-	retorna(y)
+{Fibonacci Recursivo}
+inteiro fibonacciRec(inteiro: n)
+	se (n <= 1) então
+		retorna(n)
+	senão
+		retorna(fibonacciRec(n - 1) + fibonacciRec(n - 2))
+	fim
 fim
 
-inteiro maiorde4(inteiro:a,b,c,d)
-	retorna(maiorde2(maiorde2(a,b),maiorde2(c,d)))
+{Fibonacci Iterativo}
+inteiro fibonacciIter(inteiro: n)
+	inteiro: i, f, k
+	i := 1
+	f := 0
+	k := 1
+
+	repita
+		f := i + f
+		i := f - i
+		k := k + 1
+	até (k <= n)
+
+	retorna(f)
 fim
 
 inteiro principal()
-	inteiro: A,B,C,D
-	
-	leia(A)
-	leia(B)
-	leia(C)
-	leia(D)
-	
-	escreva(maiorde4(A,B,C,D))	
+	inteiro: n, i
+		
+	leia(n)
 
-  	retorna(0)
+	i := 1
+	repita
+		escreva(fibonacciIter(i))
+		i := i + 1
+	até(i < n)
+	
+	i := 1
+	repita
+		escreva(fibonacciRec(i))
+		i := i + 1
+	até(i < n)
+
+	retorna(0)
 fim

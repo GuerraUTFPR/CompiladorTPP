@@ -40,7 +40,7 @@ class Semantica():
 		#self.module = ir.Module("modulo.bc")
 
 
-
+		self.paramList = []
 		self.tipoAjuda = ''
 		self.escopo1 = ''
 		self.tipoExp = ''
@@ -94,20 +94,29 @@ class Semantica():
 	def montaFuncao(self, node):
 		if node is not None:
 			if node.type == 'declaracao_funcao': #se o nó for declaração de função
+				parametros = []				
 				if len(node.child) == 2: #caso a função tenha tipo de retorno
 					tipoRetorno = node.child[0].type
 					nome = node.child[1].value
-					if node.child[1].child[0].child[0] is not None: #se houver parametros
-						parametros = getParametro(node)
-					else:
+
+					if node.child[1].child[0].child[0] is not None: #se houver parametros						
+						#parametros = getParametro(node, node.child[1])	
+						self.getParametro(node, node.child[1].value)
+						parametros = self.paramList[:]								
+					else:						
 						parametros = []
 				else:
 					tipoRetorno = 'vazio' # se não houver tipo de retorno
 					nome = node.child[0].value
 					if node.child[0].child[0].child[0] is not None: # se houver parametros
-						parametros = getParametro(node)
-					else:
+						#parametros = getParametro(node, node.child[1])
+						self.getParametro(node, node.child[1].value)
+						parametros = self.paramList[:]
+					else:						
 						parametros = []
+
+				#print parametros
+				
 
 				funcao = Funcao(tipoRetorno, nome, parametros) #cria um obj função
 
@@ -130,9 +139,9 @@ class Semantica():
 				else:
 					print 'ERRO: Função "' + funcao.nome + '" já declarada.' # erro de função declarada
 
+				del self.paramList[:]
 			for son in node.child:
 				self.montaFuncao(son)
-
 
 
 	def alocaVarGlobal(self, node):
@@ -161,7 +170,6 @@ class Semantica():
 				self.alocaVarGlobal(son)
 
 
-
 	def alocaVarLocal(self, node):
 		if node is not None:
 			if node.type == 'cabecalho':							
@@ -171,8 +179,7 @@ class Semantica():
 				self.alocaVarLocal(son)
 
 
-
-	def getVarLocal(self, node, escopo):	
+	def getVarLocal(self, node, escopo):
 		if node is not None:
 			if node.type == 'declaracao_variaveis':			
 				tipo = node.child[0].type				
@@ -180,7 +187,6 @@ class Semantica():
 
 			for son in node.child:			
 				self.getVarLocal(son, escopo)
-
 
 
 	def getVar2(self, node, tipo, escopo):
@@ -210,7 +216,6 @@ class Semantica():
 				self.getVar2(son, tipo, escopo)	
 
 
-
 	def getIndice2(node, count):
 		while(node.child[0].type == 'indice'):
 			count += 1
@@ -228,7 +233,6 @@ class Semantica():
 			print 'ERRO: Função principal não declarada!'
 
 
-
 	def alocaVarFunc(self):
 		for i in range(0, len(self.listaDeFuncoes)):
 			for j in range(0, len(self.listaDeFuncoes[i].parametros) ):
@@ -243,7 +247,6 @@ class Semantica():
 					self.listaDeSimbolos.append(simbolo)
 				else:
 					print 'ERRO: Variável "' + simbolo.nome + '" já declarada na função "' + simbolo.escopo + '".'
-
 
 
 	def verificaChamadaFunc(self, node): ##verificar se os parametros está correto
@@ -271,7 +274,6 @@ class Semantica():
 		for i in range(0, len(self.listaDeFuncoes)):
 			if self.listaDeFuncoes[i].utilizado == 0:
 				print 'AVISO: Função "' + self.listaDeFuncoes[i].nome + '" declarada e não utilizada.'
-
 
 
 	def verificaRet(self, node):
@@ -356,9 +358,7 @@ class Semantica():
 			if node.type == 'retorna':
 				self.flagRet = 1
 			for son in node.child:
-				self.verificaRet3(son)
-
-			
+				self.verificaRet3(son)			
 
 
 	def verUtil(self, node):
@@ -397,8 +397,6 @@ class Semantica():
 				print 'ALERTA: Variável "' + self.listaDeSimbolos[i].nome + '" da função "'+ self.listaDeSimbolos[i].escopo +'" declarada e não utilizada.'
 
 
-
-
 	def atualizarSbtabela(self, node):
 		if node is not None:
 			if node.type == 'cabecalho':
@@ -406,6 +404,7 @@ class Semantica():
 
 			for son in node.child:
 				self.atualizarSbtabela(son)
+
 
 	def atualizarSbtabela2(self, node, cabecalho):
 		if node is not None:			
@@ -492,7 +491,6 @@ class Semantica():
 				self.atualizarSbtabela3(son, variavel, cabecalho, nivel)
 
 
-
 	def verificaExp(self, node):
 		if node is not None:
 			if node.type == 'cabecalho':
@@ -500,7 +498,6 @@ class Semantica():
 
 			for son in node.child:
 				self.verificaExp(son)
-
 
 
 	def verificaExp2(self, node, cabecalho):
@@ -526,7 +523,7 @@ class Semantica():
 					except Exception as e:
 						num1 = float(num1)
 
-					if str(tyep(num))[7] == 'i':
+					if str(type(num1))[7] == 'i':
 						tipoOp1 = 'inteiro'
 					else:
 						tipoOp1 = 'flutuante'
@@ -682,26 +679,30 @@ class Semantica():
 				self.percorreArgs(son)
 
 
+	def getParametro(self, node, escopo):
+		if node is not None:			
+			if node.type == 'cabecalho' and node.value == escopo:	
+				self.getParametro2(node.child[0], escopo)	
+
+			for son in node.child:
+				self.getParametro(son, escopo)
+
+
+	def getParametro2(self, node, escopo):
+		if node is not None:
+			if node.type == 'parametro':				
+				nome = node.value
+				tipo = node.child[0].type
+				#print nome + '   ' + tipo +'   ' + escopo 
+				self.paramList.append([tipo, nome])
+			for son in node.child:
+				self.getParametro2(son, escopo)
+
 
 
 
 ##########################################################################
 
-
-paramList = []
-
-
-def getParametro(node):
-	if node is not None:
-		if node.type == 'parametro':
-			nome = node.value
-			tipo = node.child[0].type
-			paramList.append([tipo, nome])
-
-		for son in node.child:
-			getParametro(son)
-
-	return paramList
 
 
 listVar = []

@@ -1,28 +1,30 @@
 inteiro: glob
-flutuante: aaaaaaa
 
-funcaoVazia()
+inteiro funcao2(flutuante: b, flutuante: merda)
 	inteiro: a
+	retorna (a)
+	
 fim
 
-inteiro teste(inteiro: a, flutuante: b)
-	inteiro: c
-	c:= 15
-	a := a + c
-	retorna(c)
+inteiro funcao1(inteiro: a)
+	a:= 10
+
+	retorna(a)
+fim
+
+funcao3()
+	inteiro: a122
+	a122:=122
 fim
 
 
 inteiro principal()
 	inteiro: x
-	flutuante: y
+	inteiro: y
 
-	x:= glob * y
+	y:= 11
 
-	x:= teste(10)
-	y:= 11.6
-	flutuante: matheus
-
+	x := y + 1
 
 	retorna(0)
 fim

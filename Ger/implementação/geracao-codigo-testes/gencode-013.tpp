@@ -3,6 +3,7 @@
 inteiro maiorde2(inteiro:x,y)
 	se (x > y) então
 		retorna(x)
+	fim
 	retorna(y)
 fim
 

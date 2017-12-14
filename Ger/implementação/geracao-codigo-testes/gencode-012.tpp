@@ -20,5 +20,5 @@ inteiro principal()
       escreva(1) {Verdadeiro}
    fim
 
-   retorno(0)
+   retorna(0)
 fim

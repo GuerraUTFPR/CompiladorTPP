@@ -1,45 +1,13 @@
-{Maior de 4 número: contribuição do Kawamoto}
+{Parametros de função}
 
-{Fibonacci Recursivo}
-inteiro fibonacciRec(inteiro: n)
-	se (n <= 1) então
-		retorna(n)
-	senão
-		retorna(fibonacciRec(n - 1) + fibonacciRec(n - 2))
-fim
-
-{Fibonacci Iterativo}
-inteiro fibonacciIter(inteiro: n)
-	inteiro: i, f, k
-	i := 1
-	f := 0
-	k := 1
-
-	repita
-		f := i + f
-		i := f - i
-		k := k + 1
-	até (k <= n)
-
-	retorna(f)
+inteiro func(inteiro: p1, flutuante: p2)
+  inteiro: r
+  retorna(r)
 fim
 
 inteiro principal()
-	inteiro: n, i
-		
-	leia(n)
-
-	i := 1
-	repita
-		escreva(fibonacciIter(i))
-		i := i + 1
-	até(i < n)
-	
-	i := 1
-	repita
-		escreva(fibonacciRec(i))
-		i := i + 1
-	até(i < n)
-
-	retorna(0)
+  inteiro: x
+  x := func(1,2)
+  retorna(0)
 fim
+

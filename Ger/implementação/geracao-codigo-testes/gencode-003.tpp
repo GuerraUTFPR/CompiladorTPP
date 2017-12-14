@@ -9,6 +9,7 @@ inteiro principal()
 			ret := 1
 		senão
 			ret := 2
+		fim
 	senão
 		ret := 0
   fim
